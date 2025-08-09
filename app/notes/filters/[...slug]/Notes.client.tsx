@@ -25,9 +25,10 @@ function useDebounce<T>(value: T, delay: number): T {
 interface NotesClientProps {
   initialNotes: Note[];
   totalPages: number;
+  tag?: string;
 }
 
-export default function NotesClient({ initialNotes, totalPages }: NotesClientProps) {
+export default function NotesClient({ initialNotes, totalPages, tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,13 +37,13 @@ export default function NotesClient({ initialNotes, totalPages }: NotesClientPro
 
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch]);
+  }, [tag]);
 
   const { data } = useQuery({
-    queryKey: ["notes", page, debouncedSearch],
-    queryFn: () => fetchNotes({ page, perPage: 12, search: debouncedSearch }),
+    queryKey: ["notes", page, debouncedSearch, tag],
+    queryFn: () => fetchNotes({ page, perPage: 12, search: debouncedSearch, tag}),
     initialData: 
-      page === 1 && debouncedSearch === ""
+      page === 1 && debouncedSearch === "" && !tag
         ? { notes: initialNotes, totalPages, page: 1, perPage: 12 }
         : undefined,
       placeholderData: (prev) => prev,
