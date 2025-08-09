@@ -9,7 +9,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import Modal from "@/components/Modal/Modal";
 import type { Note } from "@/types/note";
-import css from "./NotesPage.module.css"
+import styles from "./NotesPage.module.css"
 
 function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -37,9 +37,9 @@ export default function NotesClient({ initialNotes, totalPages, tag }: NotesClie
 
   useEffect(() => {
     setPage(1);
-  }, [tag]);
+  }, [tag, debouncedSearch]);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["notes", page, debouncedSearch, tag],
     queryFn: () => fetchNotes({ page, perPage: 12, search: debouncedSearch, tag}),
     initialData: 
@@ -53,18 +53,26 @@ export default function NotesClient({ initialNotes, totalPages, tag }: NotesClie
   const notes = data?.notes ?? [];
   const pages = data?.totalPages ?? 1;
 
+  if (isLoading) {
+    return (
+      <div className={styles.loading}>
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <>
-      <header className={css.toolbar}>
+      <header className={styles.toolbar}>
         <SearchBox value={search} onChange={(val: string) => setSearch(val)} />
-        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+        <button className={styles.button} onClick={() => setIsModalOpen(true)}>
           Create note +
         </button>
       </header>
       {notes.length > 0 ? (
         <NoteList notes={notes} />
       ) : (
-        <p className={css.message}>No notes found.</p>
+        <p className={styles.message}>No notes found.</p>
       )}
       {pages > 1 && (
         <Pagination currentPage={page} totalPages={pages} onPageChange={setPage} />

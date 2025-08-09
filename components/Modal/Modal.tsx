@@ -1,8 +1,8 @@
 "use client";
-
+import ReactDOM from "react-dom";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import css from "@/components/Modal/NoteModal.module.css";
+import styles from "@/components/Modal/NoteModal.module.css";
 
 interface ModalProps {
   children: React.ReactNode;
@@ -31,13 +31,13 @@ export default function Modal({ children, onClose, isOpen }: ModalProps) {
 
   if (!modalRoot) return null;
 
-  return createPortal(
-    <div className={css.backdrop} onClick={onClose}>
-      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
+  return ReactDOM.createPortal(
+    <div className={styles.backdrop} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>,
-    modalRoot
+    document.body
   );
 }
 

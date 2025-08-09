@@ -69,3 +69,4 @@ export async function fetchNoteById(id: string): Promise<Note> {
   const res: AxiosResponse<Note> = await api.get(`/notes/${id}`);
   return res.data;
 }
+
