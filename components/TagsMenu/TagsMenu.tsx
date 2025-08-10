@@ -28,7 +28,7 @@ export default function TagsMenu() {
         <ul className={css.menuList}>
           <li className={css.menuItem}>
             <Link
-              href="/notes/filters/All"
+              href="/notes/filter/All"
               className={`${css.menuLink} ${currentTag === "All" ? css.active : ""}`}
               onClick={() => setIsOpen(false)}
             >
@@ -36,7 +36,7 @@ export default function TagsMenu() {
             </Link>
           </li>
           {TAGS.map((tag) => {
-            const href = `/notes/filters/${tag}`;
+            const href = `/notes/filter/${tag}`;
             return (
               <li key={tag} className={css.menuItem}>
                 <Link

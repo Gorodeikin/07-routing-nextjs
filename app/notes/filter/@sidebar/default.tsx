@@ -15,7 +15,7 @@ export default function SidebarNotes() {
     const pathname = usePathname();
   
     const getFilter = (tag: MenuTag): string => {
-        return tag === ALL_NOTES ? "/notes/filters/All" : `/notes/filters/${tag}`;
+        return tag === ALL_NOTES ? "/notes/filter/All" : `/notes/filter/${tag}`;
     };
 
     return (
