@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default async function FilteredNotesPage({ params }: Props) {
-
+  
   const awaitedParams = await params;
   const { slug = [] } = awaitedParams; 
   const tag = slug[0] ?? "All";

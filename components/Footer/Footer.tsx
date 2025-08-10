@@ -1,10 +1,10 @@
-import styles from './Footer.module.css';
+import css from './Footer.module.css';
 
 export const Footer = () => (
-    <footer className={styles.footer}>
-    <div className={styles.content}>
+    <footer className={css.footer}>
+    <div className={css.content}>
       <p>© {new Date().getFullYear()} NoteHub. All rights reserved.</p>
-      <div className={styles.wrap}>
+      <div className={css.wrap}>
         <p>Developer: your name</p>
         <p>
           Contact us:

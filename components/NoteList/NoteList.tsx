@@ -11,6 +11,8 @@ interface NoteListProps {
   onNoteClick?: (note: Note) => void; 
 }
 
+
+
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
 
@@ -35,8 +37,9 @@ export default function NoteList({ notes }: NoteListProps) {
           <p className={css.content}>{note.content}</p>
           <div className={css.footer}>
             <span className={css.tag}>{note.tag}</span>
-            <Link href={`/notes/(modal)/${note.id}`} as={`/notes/${note.id}`} className={css.viewLink}>
-              View details
+            <Link key={note.id} href={`/notes/${note.id}`} className={css.viewLink}
+            >
+            View details
             </Link>
             <button
               className={css.button}

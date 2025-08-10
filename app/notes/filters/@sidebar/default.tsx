@@ -22,7 +22,7 @@ export default function SidebarNotes() {
         <aside className={css.sidebar}>
             <ul className={css.menuList}>
                 {menuTags.map((tag) => {
-                    const isActive = pathname === getFilter(tag);
+                    const isActive = pathname?.startsWith(getFilter(tag));
                     return (
                         <li key={tag} className={css.menuItem}>
                             <Link

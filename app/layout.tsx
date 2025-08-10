@@ -1,11 +1,11 @@
 import '@/app/globals.css';
-import { ReactNode } from 'react';
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
-import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+
 import { Header }  from '@/components/Header/Header';
 import { Footer }  from '@/components/Footer/Footer';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 
 export const metadata: Metadata = {
   title: 'NoteHub',
@@ -22,13 +22,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+
+export default function RootLayout({ 
+  children,
+  modal,
+}: Readonly<{
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <TanStackProvider>
           <Header />
-          <main>{children}</main>
+          {modal}
+          <main>
+            {children}
+          </main>
           <Footer />
         </TanStackProvider>
         <div id="modal-root" />

@@ -9,7 +9,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import Modal from "@/components/Modal/Modal";
 import type { Note } from "@/types/note";
-import styles from "./NotesPage.module.css"
+import css from "./NotesPage.module.css"
 
 function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -22,13 +22,13 @@ function useDebounce<T>(value: T, delay: number): T {
   return debouncedValue;
 }
 
-interface NotesClientProps {
+type Props = {
   initialNotes: Note[];
   totalPages: number;
   tag?: string;
 }
 
-export default function NotesClient({ initialNotes, totalPages, tag }: NotesClientProps) {
+export default function NotesClient({ initialNotes, totalPages, tag }: Props) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,7 +55,7 @@ export default function NotesClient({ initialNotes, totalPages, tag }: NotesClie
 
   if (isLoading) {
     return (
-      <div className={styles.loading}>
+      <div className={css.loading}>
         Loading...
       </div>
     );
@@ -63,16 +63,16 @@ export default function NotesClient({ initialNotes, totalPages, tag }: NotesClie
 
   return (
     <>
-      <header className={styles.toolbar}>
+      <header className={css.toolbar}>
         <SearchBox value={search} onChange={(val: string) => setSearch(val)} />
-        <button className={styles.button} onClick={() => setIsModalOpen(true)}>
+        <button className={css.button} onClick={() => setIsModalOpen(true)}>
           Create note +
         </button>
       </header>
       {notes.length > 0 ? (
         <NoteList notes={notes} />
       ) : (
-        <p className={styles.message}>No notes found.</p>
+        <p className={css.message}>No notes found.</p>
       )}
       {pages > 1 && (
         <Pagination currentPage={page} totalPages={pages} onPageChange={setPage} />
