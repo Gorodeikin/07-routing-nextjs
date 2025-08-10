@@ -1,4 +1,3 @@
-// /app/@modal/(.)notes/[id]/NotePreview.client.tsx — клиентский
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -17,6 +16,7 @@ export default function NotePreviewClient({ id }: Props) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
+    refetchOnMount: false,
   });
 
   const closeModal = () => router.back();

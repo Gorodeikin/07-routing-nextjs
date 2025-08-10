@@ -11,8 +11,6 @@ interface NoteListProps {
   onNoteClick?: (note: Note) => void; 
 }
 
-
-
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
 
