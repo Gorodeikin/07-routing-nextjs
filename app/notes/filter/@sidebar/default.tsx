@@ -1,9 +1,6 @@
-"use client";
-
 import css from "./SidebarNotes.module.css";
 import Link from "next/link";
 import type { NoteTag } from "@/types/note";
-import { useParams } from "next/navigation";
 
 const ALL_NOTES = "All Notes" as const;
 type MenuTag = NoteTag | typeof ALL_NOTES;
@@ -18,9 +15,10 @@ const normalizeActiveTag = (tag?: string): MenuTag => {
     return tag === "All" ? ALL_NOTES : (tag as NoteTag);
   };
 
-export default function SidebarNotes() {
-    const params = useParams();
-    const activeTagRaw = params.slug ? params.slug[0] : undefined;
+  type Props = { params: { slug?: string[] } };
+
+  export default function SidebarNotes({ params }: Props) {
+    const activeTagRaw = params?.slug ? params.slug[0] : undefined;
     const normalizedActiveTag = normalizeActiveTag(activeTagRaw);
 
     return (
